@@ -1,0 +1,17 @@
+{
+  "name": "sf-businesses",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "d3": "^4.10.0",
+    "soda-js": "^0.2.3",
+    "turf": "^3.0.14"
+  }
+}

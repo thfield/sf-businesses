@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>SF Business Licence Codes</title>
+
+  <link rel="stylesheet" href="css/style.css">
+  <link href='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.css' rel='stylesheet' />
+
+  <script src="lib/d3.min.js"></script>
+  <script src="lib/soda-js.bundle.js"></script>
+  <script src='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.js'></script>
+</head>
+
+<body>
+  <div>
+    <select id="lic-codes" class="lic-selector" multiple></select>
+    <input id="joiner" type="checkbox"><label for="joiner">require all licenses</label>
+    <button onclick="codes()">Get Businesses</button>
+    <img id="loading" class="hidden" src="ajax-loader.gif"/>
+    <span id="null-result" class="hidden">No businesses found with that license code.</span>
+  </div>
+
+  <div id='map'></div>
+
+  <div>
+    <h3>About</h3>
+    <p>
+      The San Francisco Open Data Portal hosts a <a href="https://data.sfgov.org/Economy-and-Community/Registered-Business-Locations-San-Francisco/g8m3-pdis">dataset of businesses</a> that pay taxes to the city. This page queries that listing and allows you to search for businesses by their business license code.
+    </p>
+    <p>
+      Choose a license code from the list then click the "get businesses" button. The script will search for active businesses with any of the selected licence codes.  To search for active businesses that have all of the selected license codes, check the "require all licenses" checkbox first.
+    </p>
+
+  </div>
+
+	<script src="js/app.js" charset="utf-8"></script>
+</body>
+
+</html>

@@ -1,0 +1,7 @@
+
+https://data.sfgov.org/Economy-and-Community/Registered-Business-Locations-San-Francisco/g8m3-pdis/data
+https://data.sfgov.org/resource/vbiu-2p9h.json
+
+LIC Code contains D13,D14
+
+https://data.sfgov.org/Geographic-Locations-and-Boundaries/Current-Supervisor-Districts/gq7k-pfb2

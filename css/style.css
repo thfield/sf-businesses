@@ -1,0 +1,17 @@
+.lic-selector {
+  height: 200px;
+}
+
+.hidden {
+  display: none;
+}
+
+body {
+  margin:0;
+  padding:0;
+}
+
+#map {
+  width: 100%;
+  height: 700px;
+}
