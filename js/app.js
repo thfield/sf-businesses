@@ -1,6 +1,7 @@
 L.mapbox.accessToken = 'pk.eyJ1IjoidGhmaWVsZCIsImEiOiI4YTA3MmJkY2Q0OTg0YTkzMDAxOWQ3NzIyMzQ3NjIzOSJ9.LxGif2Jlko59H3l5yUvZug';
 let map = L.mapbox.map('map', 'mapbox.streets')
     .setView([37.77, -122.42], 11);
+let infoSummary = d3.select('#info-summary')
 
 let markers = L.layerGroup();
 
@@ -36,7 +37,7 @@ function getData(wherestring, handler){
 }
 
 function codes() {
-  let joiner = d3.select('#joiner').property('checked') ? 'AND' : 'OR'
+  let joiner = d3.select('input[name="joinerRadios"]:checked').property("value")
   d3.select('#loading').classed('hidden', false)
   d3.select('#info-result').text(``)
   let wherestring = whereString( getCodes('lic-codes'), joiner )
@@ -45,19 +46,31 @@ function codes() {
 
 function handle(rows){
   d3.select('#loading').classed('hidden', true)
+  infoSummary.classed('hidden', false)
   markers.clearLayers();
+  infoSummary.select('tbody').html('')
   if(rows.length === 0){
     return d3.select('#info-result').text('No businesses found with that license code.')
   }
+  let supes = [0,0,0,0,0,0,0,0,0,0,0,0]
   rows.forEach(row=>{
     if (row.location) {
       let coords = [row.location.coordinates[1], row.location.coordinates[0]]
       let content = `<p><strong>${row.dba_name}</strong></p><p>${row.location_address}<br> ${row.location_city}, ${row.location_state} ${row.location_zip}</p>`;
       let marker = L.marker(coords).bindPopup(content);
       markers.addLayer(marker)
+      // count business in each supervisor district
+      if(row.supervisor_district){
+          supes[+row.supervisor_district] += 1
+      }
     }
   })
   d3.select('#info-result').text(`${rows.length} businesses found`)
+  supes.forEach((count,index)=>{
+    if( index===0 ) return
+    infoSummary.select('tbody').append('tr')
+        .html(`<td>District ${index}</td><td>${count}</td>`)
+  })
   map.addLayer(markers)
 }
 

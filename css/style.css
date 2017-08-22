@@ -1,5 +1,9 @@
 .lic-selector {
-  height: 200px;
+  height: 12em;
+}
+
+.mainrow {
+  margin: 1em;
 }
 
 .hidden {

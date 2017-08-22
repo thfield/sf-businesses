@@ -6,6 +6,7 @@
   <title>SF Business Licence Codes</title>
 
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="lib/pure.css">
   <link href='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.css' rel='stylesheet' />
 
   <script src="lib/d3.min.js"></script>
@@ -14,20 +15,51 @@
 </head>
 
 <body>
-  <div>
-    <select id="lic-codes" class="lic-selector" multiple></select>
-    <input id="joiner" type="checkbox"><label for="joiner">require all licenses</label>
-    <button onclick="codes()">Get Businesses</button>
-    <img id="loading" class="hidden" src="ajax-loader.gif"/>
-    <span id="info-result"></span>
-    <div id="info-summary"></div>
+  <div class="pure-g mainrow">
+    <div class="pure-u-1-5">
+      <span id="info-result"></span>
+    </div>
+
+    <div class="pure-u-1-5">
+      <div class="pure-form pure-form-stacked">
+        <label for="joiner-OR" class="pure-radio">
+          <input id="joiner-OR" type="radio" name="joinerRadios" value="OR" checked>
+            OR
+        </label>
+        <label for="joiner-AND" class="pure-radio">
+          <input id="joiner-AND" type="radio" name="joinerRadios" value="AND">
+          AND
+        </label>
+
+        <button onclick="codes()" class="pure-button">Get Businesses</button>
+        <img id="loading" class="hidden" src="ajax-loader.gif"/>
+      </div>
+    </div>
+
+    <div class="pure-u-2-5">
+      <select id="lic-codes" class="lic-selector" multiple></select>
+    </div>
+
+    <div id="additional-filters" class="hidden">
+      <select id="supervisor-district" class="supervisor-district-selector" multiple></select>
+    </div>
+
   </div>
 
-  <div id="additional-filters" class="hidden">
-    <select id="supervisor-district" class="supervisor-district-selector" multiple></select>
-  </div>
 
   <div id='map'></div>
+  
+  <div id="info-summary" class="hidden">
+    <table class="pure-table">
+      <thead>
+          <tr>
+              <th>Supervisor District</th>
+              <th>Count</th>
+          </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
 
   <div>
     <h3>About</h3>
