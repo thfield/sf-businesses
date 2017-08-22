@@ -15,63 +15,71 @@
 </head>
 
 <body>
-  <div class="pure-g mainrow">
-    <div class="pure-u-1-5">
-      <span id="info-result"></span>
-    </div>
+<div class="mainrow">
+    <div class="pure-g">
+      <div class="pure-u-1-5">
+        <span id="info-result"></span>
+      </div>
 
-    <div class="pure-u-1-5">
-      <div class="pure-form pure-form-stacked">
-        <label for="joiner-OR" class="pure-radio">
-          <input id="joiner-OR" type="radio" name="joinerRadios" value="OR" checked>
-            OR
-        </label>
-        <label for="joiner-AND" class="pure-radio">
-          <input id="joiner-AND" type="radio" name="joinerRadios" value="AND">
-          AND
-        </label>
+      <div class="pure-u-1-5">
+        <div class="pure-form pure-form-stacked">
+          <label for="joiner-OR" class="pure-radio">
+            <input id="joiner-OR" type="radio" name="joinerRadios" value="OR" checked>
+              OR
+          </label>
+          <label for="joiner-AND" class="pure-radio">
+            <input id="joiner-AND" type="radio" name="joinerRadios" value="AND">
+            AND
+          </label>
 
-        <button onclick="codes()" class="pure-button">Get Businesses</button>
-        <img id="loading" class="hidden" src="ajax-loader.gif"/>
+          <button onclick="codes()" class="pure-button">Get Businesses</button>
+          <img id="loading" class="hidden" src="ajax-loader.gif"/>
+        </div>
+      </div>
+
+      <div class="pure-u-2-5">
+        <select id="lic-codes" class="lic-selector" multiple></select>
+      </div>
+
+      <div id="additional-filters" class="hidden">
+        <select id="supervisor-district" class="supervisor-district-selector" multiple></select>
       </div>
     </div>
 
-    <div class="pure-u-2-5">
-      <select id="lic-codes" class="lic-selector" multiple></select>
+
+
+  <div id="map"></div>
+
+  <div class="pure-g">
+    <div class="pure-u-12-24">
+      <h3>About</h3>
+      <p>
+        The San Francisco Open Data Portal hosts a <a href="https://data.sfgov.org/Economy-and-Community/Registered-Business-Locations-San-Francisco/g8m3-pdis">dataset of businesses</a> that pay taxes to the city. This page queries that listing and allows you to search for businesses by their business license code.
+      </p>
+      <p>
+        Choose a license code from the list then click the "get businesses" button. The script will search for active businesses with any of the selected licence codes.  To search for active businesses that have all of the selected license codes, check the "require all licenses" checkbox first.
+      </p>
+      <p>
+        The default behavior is to search for business with any of the selected license codes.  By choosing the "AND" radio button instead of "OR", the search will return businesses that have all of the selected licenses.
+      </p>
+      <p>
+        The table of supervisor district shows the sum of businesses within each San Francisco Supervisor District. 
+      </p>
     </div>
 
-    <div id="additional-filters" class="hidden">
-      <select id="supervisor-district" class="supervisor-district-selector" multiple></select>
+    <div class="pure-u-12-24">
+      <table id="info-summary" class="pure-table hidden">
+        <thead>
+            <tr>
+                <th>Supervisor District</th>
+                <th>Count</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
     </div>
-
   </div>
-
-
-  <div id='map'></div>
-  
-  <div id="info-summary" class="hidden">
-    <table class="pure-table">
-      <thead>
-          <tr>
-              <th>Supervisor District</th>
-              <th>Count</th>
-          </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-  </div>
-
-  <div>
-    <h3>About</h3>
-    <p>
-      The San Francisco Open Data Portal hosts a <a href="https://data.sfgov.org/Economy-and-Community/Registered-Business-Locations-San-Francisco/g8m3-pdis">dataset of businesses</a> that pay taxes to the city. This page queries that listing and allows you to search for businesses by their business license code.
-    </p>
-    <p>
-      Choose a license code from the list then click the "get businesses" button. The script will search for active businesses with any of the selected licence codes.  To search for active businesses that have all of the selected license codes, check the "require all licenses" checkbox first.
-    </p>
-
-  </div>
-
+</div>
 	<script src="js/app.js" charset="utf-8"></script>
 </body>
 
