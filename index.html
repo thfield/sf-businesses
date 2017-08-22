@@ -19,7 +19,12 @@
     <input id="joiner" type="checkbox"><label for="joiner">require all licenses</label>
     <button onclick="codes()">Get Businesses</button>
     <img id="loading" class="hidden" src="ajax-loader.gif"/>
-    <span id="null-result" class="hidden">No businesses found with that license code.</span>
+    <span id="info-result"></span>
+    <div id="info-summary"></div>
+  </div>
+
+  <div id="additional-filters" class="hidden">
+    <select id="supervisor-district" class="supervisor-district-selector" multiple></select>
   </div>
 
   <div id='map'></div>

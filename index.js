@@ -13,13 +13,46 @@ whereString += ' AND (location_end_date IS NULL AND dba_end_date IS NULL) '
 /* get data from socrata, then analyze*/
 // getData(saveData)
 // getData(analyzeData)
-getData(lookForNulls)
+// getData(lookForNulls)
 
 /* load data from disk, then analyze data */
 // let data = loadFromLocal('closeds.json')
 // analyzeData(data)
 // lookForNulls(data)
 
+// getRollup(saveData)
+
+let data = loadFromLocal('naic_codes.json')
+foo(data)
+
+function foo (data){
+  let longstring = ''
+  // let bigarray = []
+
+  data.forEach(el=>{
+    longstring += ' ' + el.naic_code
+  })
+
+  let bigarray = longstring.split(' ')
+
+  let unique = [...new Set(bigarray)];
+
+  writeFile('unique_naics.json', unique);
+}
+
+function getRollup(handler){
+  let fieldname = 'neighborhoods_analysis_boundaries'
+  let consumer = new soda.Consumer('data.sfgov.org')
+  // let whereString = `${}`
+  consumer.query()
+    .withDataset('vbiu-2p9h')
+    .limit(220000)
+    // .group(fieldname)
+    // .select([fieldname])
+    .getRows()
+      .on('success', handler)
+      .on('error', function(error) { console.error(error); });
+}
 
 function getData(handler){
   let consumer = new soda.Consumer('data.sfgov.org')
@@ -33,7 +66,7 @@ function getData(handler){
 }
 
 function saveData(rows) {
-  writeFile('data/data.json', rows);
+  writeFile('alldata.json', rows);
 }
 
 function writeFile(filename, jsonData){

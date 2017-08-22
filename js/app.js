@@ -8,12 +8,17 @@ let markers = L.layerGroup();
 d3.csv('data/codes.csv',(err, data)=>{
   if (err) console.error(err);
 
-  let selector = d3.select('#lic-codes').selectAll('option')
+  let codeSelector = d3.select('#lic-codes').selectAll('option')
     .data(data)
     .enter().append('option')
       .attr('value', (d)=>{return d.Code})
       .text(d=>{return `${d.Code}: ${d.Description}`})
 
+  let supervisorSelect = d3.select('#supervisor-district').selectAll('option')
+    .data([1,2,3,4,5,6,7,8,9,10,11])
+    .enter().append('option')
+      .attr('value', (d)=>{return d})
+      .text(d=>{return `Supervisor District ${d}`})
 });
 
 function getData(wherestring, handler){
@@ -33,7 +38,7 @@ function getData(wherestring, handler){
 function codes() {
   let joiner = d3.select('#joiner').property('checked') ? 'AND' : 'OR'
   d3.select('#loading').classed('hidden', false)
-  d3.select('#null-result').classed('hidden', true)
+  d3.select('#info-result').text(``)
   let wherestring = whereString( getCodes('lic-codes'), joiner )
   getData(wherestring, handle)
 }
@@ -41,7 +46,9 @@ function codes() {
 function handle(rows){
   d3.select('#loading').classed('hidden', true)
   markers.clearLayers();
-  if(rows.length === 0){ return d3.select('#null-result').classed('hidden', false)}
+  if(rows.length === 0){
+    return d3.select('#info-result').text('No businesses found with that license code.')
+  }
   rows.forEach(row=>{
     if (row.location) {
       let coords = [row.location.coordinates[1], row.location.coordinates[0]]
@@ -50,6 +57,7 @@ function handle(rows){
       markers.addLayer(marker)
     }
   })
+  d3.select('#info-result').text(`${rows.length} businesses found`)
   map.addLayer(markers)
 }
 
