@@ -60,15 +60,24 @@
         Choose a license code from the list then click the "get businesses" button. The default behavior is to search for active business with any of the selected license codes.  By choosing the "AND" radio button instead of "OR", the search will return active businesses that have all of the selected licenses.
       </p>
       <p>
-        The table of supervisor district shows the sum of found businesses within each San Francisco Supervisor District. 
+        The table of supervisor district shows the sum of found businesses within each San Francisco Supervisor District.
       </p>
     </div>
 
     <div class="pure-u-12-24">
-      <table id="info-summary" class="pure-table hidden">
+      <table id="summary-supervisors" class="pure-table hidden">
         <thead>
             <tr>
                 <th>Supervisor District</th>
+                <th>Count</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <table id="summary-neighborhoods" class="pure-table hidden">
+        <thead>
+            <tr>
+                <th>Neighborhood</th>
                 <th>Count</th>
             </tr>
         </thead>

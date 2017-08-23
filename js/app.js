@@ -1,10 +1,10 @@
 L.mapbox.accessToken = 'pk.eyJ1IjoidGhmaWVsZCIsImEiOiI4YTA3MmJkY2Q0OTg0YTkzMDAxOWQ3NzIyMzQ3NjIzOSJ9.LxGif2Jlko59H3l5yUvZug';
 let map = L.mapbox.map('map', 'mapbox.streets')
     .setView([37.77, -122.42], 11);
-let infoSummary = d3.select('#info-summary')
-
 let markers = L.layerGroup();
 
+let summarySupervisors = d3.select('#summary-supervisors')
+let summaryNeighborhoods = d3.select('#summary-neighborhoods')
 // selector options
 d3.csv('data/codes.csv',(err, data)=>{
   if (err) console.error(err);
@@ -46,13 +46,16 @@ function codes() {
 
 function handle(rows){
   d3.select('#loading').classed('hidden', true)
-  infoSummary.classed('hidden', false)
+  summarySupervisors.classed('hidden', false)
+  summaryNeighborhoods.classed('hidden', false)
   markers.clearLayers();
-  infoSummary.select('tbody').html('')
+  summarySupervisors.select('tbody').html('')
+  summaryNeighborhoods.select('tbody').html('')
   if(rows.length === 0){
     return d3.select('#info-result').text('No businesses found with that license code.')
   }
   let supes = [0,0,0,0,0,0,0,0,0,0,0,0]
+  let neighborhoods = {}
   rows.forEach(row=>{
     if (row.location) {
       let coords = [row.location.coordinates[1], row.location.coordinates[0]]
@@ -63,14 +66,23 @@ function handle(rows){
       if(row.supervisor_district){
           supes[+row.supervisor_district] += 1
       }
+      //count businesses in each neighborhood
+      if(row.neighborhoods_analysis_boundaries){
+        neighborhoods[row.neighborhoods_analysis_boundaries] = neighborhoods[row.neighborhoods_analysis_boundaries] || 0
+        neighborhoods[row.neighborhoods_analysis_boundaries] += 1
+      }
     }
   })
   d3.select('#info-result').text(`${rows.length} businesses found`)
   supes.forEach((count,index)=>{
     if( index===0 ) return
-    infoSummary.select('tbody').append('tr')
+    summarySupervisors.select('tbody').append('tr')
         .html(`<td>District ${index}</td><td>${count}</td>`)
   })
+  for (let neighborhood in neighborhoods) {
+    summaryNeighborhoods.select('tbody').append('tr')
+        .html(`<td>${neighborhood}</td><td>${neighborhoods[neighborhood]}</td>`)
+  }
   map.addLayer(markers)
 }
 
