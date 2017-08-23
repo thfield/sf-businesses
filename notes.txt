@@ -5,3 +5,11 @@ https://data.sfgov.org/resource/vbiu-2p9h.json
 LIC Code contains D13,D14
 
 https://data.sfgov.org/Geographic-Locations-and-Boundaries/Current-Supervisor-Districts/gq7k-pfb2
+
+neighborhoods and count of records
+https://data.sfgov.org/resource/vbiu-2p9h.json?$query=SELECT%20neighborhoods_analysis_boundaries,%20COUNT(*)%20AS%20count%20GROUP%20BY%20neighborhoods_analysis_boundaries
+
+curl 'https://data.sfgov.org/resource/vbiu-2p9h.json?$query=SELECT%20neighborhoods_analysis_boundaries,%20COUNT(*)%20AS%20count%20GROUP%20BY%20neighborhoods_analysis_boundaries' > data/neighborhoods.json
+
+
+curl 'https://data.sfgov.org/resource/vbiu-2p9h.json?$query=SELECT%naic_code,%20COUNT(*)%20AS%20count%20GROUP%20BY%naic_code' > data/naics_count.json

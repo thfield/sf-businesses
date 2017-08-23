@@ -22,8 +22,9 @@ whereString += ' AND (location_end_date IS NULL AND dba_end_date IS NULL) '
 
 // getRollup(saveData)
 
-let data = loadFromLocal('naic_codes.json')
-foo(data)
+let data = loadFromLocal('data/unique_naics.json')
+// foo(data)
+console.log(data.length);
 
 function foo (data){
   let longstring = ''
@@ -66,7 +67,7 @@ function getData(handler){
 }
 
 function saveData(rows) {
-  writeFile('alldata.json', rows);
+  writeFile('neighborhoods.json', rows);
 }
 
 function writeFile(filename, jsonData){
